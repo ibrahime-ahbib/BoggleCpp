@@ -21,8 +21,8 @@ int main(void)
     trier(cette_liste);
     trier(cette_liste2);
 
-    // afficher les éléments de liste_mot2 qui ne sont pas dans liste_mot1
-    sans_repetition(cette_liste, cette_liste2);
+    // afficher les éléments de liste_mot2 qui sont **dans** liste_mot1
+    avec_repetition(cette_liste, cette_liste2);
     
 
     // TODO : faire une fonction detruire
