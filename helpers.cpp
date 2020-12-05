@@ -201,19 +201,36 @@ void ajouter_liste(Liste_de_liste& conteneur_liste, Liste_mot& liste_mot)
 }
 void afficher_liste(Liste_de_liste& conteneur_liste) 
 {
+	Liste_mot liste_fin;
+	initialiser(liste_fin);
+
+	//la liste de tous les mots 
 	for (unsigned int i = 0; i < conteneur_liste.nb_listes; ++i) 
 	{
-		std::cout << "# Affichage de la liste " << i << std::endl;
-
-		for (unsigned int j = 0; j < conteneur_liste.listes[i].inserted; j++)
+		for(unsigned int j = 0; j < conteneur_liste.listes[i].inserted; ++j)
 		{
-			std::cout << conteneur_liste.listes[i].tab[j] << std::endl;
+			ajouter(liste_fin, conteneur_liste.listes[i].tab[j]);
 		}
-
-		std::cout << "*" << std::endl;
 	}
+
+	trier(liste_fin);
+
+	Mot dernier_mot_doublon = "";
+	for (unsigned int i = 1; i < liste_fin.inserted; i++)
+	{
+		if (strcmp(liste_fin.tab[i], dernier_mot_doublon) == 0) {
+			continue;
+		}
+		if (strcmp(liste_fin.tab[i - 1], liste_fin.tab[i]) == 0) {
+			std::cout << liste_fin.tab[i] << std::endl;
+			strcpy(dernier_mot_doublon, liste_fin.tab[i]);
+		}
+	}
+	std::cout << "*";
+
 }
-void detruire_liste(Liste_de_liste& conteneur_liste) {
+void detruire_liste(Liste_de_liste& conteneur_liste) 
+{
 	conteneur_liste.nb_listes = 0;	
 	for(unsigned int i = 0; i < conteneur_liste.nb_listes; ++i)
 	{
