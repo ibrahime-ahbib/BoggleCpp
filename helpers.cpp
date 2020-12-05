@@ -10,6 +10,16 @@
 
 #pragma warning(disable:4996)
 
+/*
+Ajout de la fonction ajouter liste()
+====================================
+
+TODO :
+
+* refaire le main
+* function pour afficher tous les mots stockés dans la liste de liste, mais qui apparaissent au moins dans deux listes
+*/
+
 unsigned int mots_vers_pts(const char* mot)
 {
 	size_t taille_mot = strlen(mot);
@@ -46,18 +56,6 @@ int lire(Liste_mot& liste_mot)
 			compteur++;
 		}
     }
-}
-// [*] 
-void lire_liste(Liste_de_liste conteneur_liste)
-{
-	while (1)
-	{
-		Liste_mot liste_mot;
-		if (lire(liste_mot) == 0) {
-			break;
-		}
-		ajouter_liste(conteneur_liste, liste_mot);
-	}
 }
 
 bool exister(Liste_mot& liste_mot, Mot mot_test)
@@ -149,6 +147,32 @@ void trier(Liste_mot& liste_mot)
 	}
 }
 
+
+void initialiser_liste(Liste_de_liste& conteneur_liste)
+{
+	conteneur_liste.nb_listes = 0;
+	conteneur_liste.listes = new Liste_mot[1];
+
+	initialiser(conteneur_liste.listes[0]);
+
+	return;
+}
+
+void lire_liste(Liste_de_liste& conteneur_liste)
+{
+	while (1)
+	{
+		Liste_mot liste_mot;
+		initialiser(liste_mot);
+		if (lire(liste_mot) == 0) {
+			break;
+		}
+		trier(liste_mot);
+		ajouter_liste(conteneur_liste, liste_mot);
+		delete[] liste_mot.tab;
+	}
+}
+
 void ajouter_liste(Liste_de_liste& conteneur_liste, Liste_mot& liste_mot)
 {
 	unsigned int idx = conteneur_liste.nb_listes++;
@@ -156,17 +180,16 @@ void ajouter_liste(Liste_de_liste& conteneur_liste, Liste_mot& liste_mot)
 
 	for(unsigned int i = 0; i < idx; ++i)
 	{
-		//memcpy(nouveau_tableau.tab[i], conteneur_liste.tab[i]);
 		unsigned int inserted = conteneur_liste.listes[i].inserted; 
 		nouveau_tableau_de_listes[i].inserted = inserted;
-
+		nouveau_tableau_de_listes[i].tab = new Mot[inserted];
 		for (unsigned int j = 0; j < inserted; j++) {
 			strcpy(nouveau_tableau_de_listes[i].tab[j], conteneur_liste.listes[i].tab[j]);
 		}
-		
 	}
 
 	nouveau_tableau_de_listes[idx].inserted = liste_mot.inserted;
+	nouveau_tableau_de_listes[idx].tab = new Mot[liste_mot.inserted + 1];
 	for (unsigned int j = 0; j < liste_mot.inserted; j++)
 	{
 		strcpy(nouveau_tableau_de_listes[idx].tab[j], liste_mot.tab[j]);
@@ -176,7 +199,26 @@ void ajouter_liste(Liste_de_liste& conteneur_liste, Liste_mot& liste_mot)
 	conteneur_liste.listes = nouveau_tableau_de_listes;
 	
 }
+void afficher_liste(Liste_de_liste& conteneur_liste) 
+{
+	for (unsigned int i = 0; i < conteneur_liste.nb_listes; ++i) 
+	{
+		std::cout << "# Affichage de la liste " << i << std::endl;
 
-void detruire(Liste_de_liste& conteneur_liste) {
-	
+		for (unsigned int j = 0; j < conteneur_liste.listes[i].inserted; j++)
+		{
+			std::cout << conteneur_liste.listes[i].tab[j] << std::endl;
+		}
+
+		std::cout << "*" << std::endl;
+	}
+}
+void detruire_liste(Liste_de_liste& conteneur_liste) {
+	conteneur_liste.nb_listes = 0;	
+	for(unsigned int i = 0; i < conteneur_liste.nb_listes; ++i)
+	{
+		delete[] conteneur_liste.listes[i].tab;
+	}
+
+	delete[] conteneur_liste.listes;
 }

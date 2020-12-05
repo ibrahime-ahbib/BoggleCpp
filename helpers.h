@@ -14,8 +14,11 @@ int lire(Liste_mot& liste_mot);
 void sans_repetition(Liste_mot& liste_mot, Liste_mot& liste_mot2);
 void avec_repetition(Liste_mot& liste_mot, Liste_mot& liste_mot2);
 
-void lire_liste(Liste_de_liste conteneur_liste);
+void initialiser_liste(Liste_de_liste& conteneur_liste);
+void lire_liste(Liste_de_liste& conteneur_liste);
 void ajouter_liste(Liste_de_liste& conteneur_liste, Liste_mot& liste_mot);
+void afficher_liste(Liste_de_liste& conteneur_liste);
+void detruire_liste(Liste_de_liste& conteneur_liste);
 
 /**
  * @brief
