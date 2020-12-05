@@ -10,11 +10,12 @@ void trier(Liste_mot& liste_mot);
 void afficher(Liste_mot& liste_mot);
 bool exister(Liste_mot& liste_mot, Mot mot_test);
 
-void lire(Liste_mot& liste_mot);
+int lire(Liste_mot& liste_mot);
 void sans_repetition(Liste_mot& liste_mot, Liste_mot& liste_mot2);
 void avec_repetition(Liste_mot& liste_mot, Liste_mot& liste_mot2);
 
-
+void lire_liste(Liste_de_liste conteneur_liste);
+void ajouter_liste(Liste_de_liste& conteneur_liste, Liste_mot& liste_mot);
 
 /**
  * @brief
