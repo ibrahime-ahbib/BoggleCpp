@@ -10,26 +10,24 @@
 int main(void)
 {
     unsigned int nb_pts = 0;
-    Mot buffer;
 
-    Liste_mot cette_liste;
+    Liste_mot cette_liste, cette_liste2;
     initialiser(cette_liste);
-    while (1)
-    {
-        scanf("%s", buffer);
-
-        if (strcmp(buffer, "*") == 0) {
-            break; // skip
-        }
-
-        if (!exister(cette_liste, buffer))
-            ajouter(cette_liste, buffer);
-    }
+    initialiser(cette_liste2);
+    
+    lire(cette_liste);
+    lire(cette_liste2);
 
     trier(cette_liste);
-    afficher(cette_liste);
+    trier(cette_liste2);
 
+    // afficher les éléments de liste_mot2 qui ne sont pas dans liste_mot1
+    sans_repetition(cette_liste, cette_liste2);
+    
+
+    // TODO : faire une fonction detruire
     delete[] cette_liste.tab;
+    delete[] cette_liste2.tab;
 
     return 0;
 }
