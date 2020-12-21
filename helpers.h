@@ -20,6 +20,12 @@ void ajouter_liste(Liste_de_liste& conteneur_liste, Liste_mot& liste_mot);
 void afficher_liste(Liste_de_liste& conteneur_liste);
 void detruire_liste(Liste_de_liste& conteneur_liste);
 
+bool ajouter_plateau(Plateau& p);
+void afficher_plateau(const Plateau& p);
+void initialiser_plateau(Plateau_bool& p_bool);
+
+bool dans_le_plateau(Plateau& p, Mot mot); // fonction de recherche
+
 /**
  * @brief
  * @see https://fr.wikipedia.org/wiki/Tri_%C3%A0_bulles
