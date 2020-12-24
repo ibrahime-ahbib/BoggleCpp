@@ -29,23 +29,58 @@ unsigned int mots_vers_pts(const char* mot)
 	}
 }
 
-int lire(Liste_mot& liste_mot)
+
+
+bool lire(Liste_mot & liste_mot)
 {
 	Mot buffer;
-	int compteur = 0;
+	bool compteur = false;
+
 	while (1)
     {
 		scanf("%s", buffer);
 
 		if (strcmp(buffer, "*") == 0) {
-			return compteur; // si compteur = 0 on a entrÃ© seulement * dans la liste
+			return compteur; // si compteur = 0 on a entré seulement * dans la liste
 		}
 
 		if (!exister(liste_mot, buffer)) {
 			ajouter(liste_mot, buffer);
-			compteur++;
+			compteur = true;
 		}
     }
+
+	// inutile mais bon...
+	return compteur;
+}
+
+/*
+	lire sauf que y'a vérification de plateau
+*/
+bool lire(Liste_mot& liste_mot, Plateau& plateau)
+{
+	Mot buffer;
+	bool compteur = false;
+
+	while (1)
+    {
+		scanf("%s", buffer);
+
+		if (strcmp(buffer, "*") == 0) {
+			return compteur; // si compteur = 0 on a entré seulement * dans la liste
+		}
+
+		if ( !dans_le_plateau(plateau, buffer) )
+			continue;
+
+		if (!exister(liste_mot, buffer)) {
+			ajouter(liste_mot, buffer);
+			compteur = true;
+		}
+    }
+
+	// inutile mais bon...
+	return compteur;
 }
 
 bool exister(Liste_mot& liste_mot, Mot mot_test)
@@ -148,20 +183,38 @@ void initialiser_liste(Liste_de_liste& conteneur_liste)
 	return;
 }
 
-void lire_liste(Liste_de_liste& conteneur_liste)
+
+
+void lire_liste(Liste_de_liste & conteneur_liste)
 {
-	while (1)
-	{
-		Liste_mot liste_mot;
-		initialiser(liste_mot);
-		if (lire(liste_mot) == 0) {
-			break;
-		}
-		trier(liste_mot);
-		ajouter_liste(conteneur_liste, liste_mot);
-		delete[] liste_mot.tab;
-	}
+    while (1)
+    {
+        Liste_mot liste_mot;
+        initialiser(liste_mot);
+        if (lire(liste_mot) == 0) {
+            break;
+        }
+        trier(liste_mot);
+        ajouter_liste(conteneur_liste, liste_mot);
+        delete[] liste_mot.tab;
+    }
 }
+//void lire_liste(Liste_de_liste& conteneur_liste, Plateau& plateau)
+//{
+//	while (1)
+//	{
+//		Liste_mot liste_mot;
+//		initialiser(liste_mot);
+//
+//		
+//		if (! lire(liste_mot, plateau)) {
+//			break;
+//		}
+//		trier(liste_mot);
+//		ajouter_liste(conteneur_liste, liste_mot);
+//		delete[] liste_mot.tab;
+//	}
+//}
 
 void ajouter_liste(Liste_de_liste& conteneur_liste, Liste_mot& liste_mot)
 {
@@ -204,17 +257,20 @@ void afficher_liste(Liste_de_liste& conteneur_liste)
 	}
 
 	trier(liste_fin);
+	
 
 	Mot dernier_mot_doublon = "";
+	std::cout << liste_fin.tab[0] << std::endl;
 	for (unsigned int i = 1; i < liste_fin.inserted; i++)
 	{
 		if (strcmp(liste_fin.tab[i], dernier_mot_doublon) == 0) {
 			continue;
 		}
+		
 		if (strcmp(liste_fin.tab[i - 1], liste_fin.tab[i]) == 0) {
-			std::cout << liste_fin.tab[i] << std::endl;
 			strcpy(dernier_mot_doublon, liste_fin.tab[i]);
 		}
+		std::cout << liste_fin.tab[i] << std::endl;
 	}
 	std::cout << "*";
 
@@ -276,20 +332,20 @@ void initialiser_plateau(Plateau_bool& p_bool)
 bool sous_recherche(Mot mot, int pos, Coords c, Plateau& p, Plateau_bool& p_bool)
 {
 	if (pos >= strlen(mot)) {
-		return true; // <=> le mot (complet) a Ã©tÃ© trouvÃ© dans le plateau !
+		return true; // <=> le mot (complet) a été trouvé dans le plateau !
 	}
 	if ((c.ligne > 4 || c.col > 4) || (c.ligne < 0 || c.col < 0)) {
 		return false; // hors limite !!
 	}
 	if (p[c.ligne][c.col] != mot[pos]) {
-		return false; // case correspond pas Ã  la lettre recherchÃ©e
+		return false; // case correspond pas à la lettre recherchée
 	}
 
 	if (p_bool[c.ligne][c.col]) {
-		return false; // c'est visitÃ© :-(
+		return false; // c'est visité :-(
 	}
 
-	p_bool[c.ligne][c.col] = true; // pas visitÃ© donc on marque comme visitÃ©
+	p_bool[c.ligne][c.col] = true; // pas visité donc on marque comme visité
 
 	for (int ligne = c.ligne - 1; ligne <= c.ligne + 1; ligne++) {
 		for (int col = c.col - 1; col <= c.col + 1; col++)
@@ -300,7 +356,7 @@ bool sous_recherche(Mot mot, int pos, Coords c, Plateau& p, Plateau_bool& p_bool
 		}
 	}
 
-	p_bool[c.ligne][c.col] = false; // pas visitÃ© donc on marque comme visitÃ©
+	p_bool[c.ligne][c.col] = false; // pas visité donc on marque comme visité
 	return false;
 }
 

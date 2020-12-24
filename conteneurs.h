@@ -21,3 +21,4 @@ struct Coords {
 	int ligne;
 	int col;
 };
+
