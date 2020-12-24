@@ -93,6 +93,22 @@ bool exister(Liste_mot& liste_mot, Mot mot_test)
 
 	return false;
 }
+// max = 369085
+// 10 20 40
+
+// coef ext1 = 10
+// coef ext2 = 4
+// ce qui a été pensé : coef ext 100
+
+// 10 + 100 + 1000 + 10000 + 100000
+// 10, 100, 1000, 10 000, 100 000 -> *4 -> 400 000, 
+// 100 000, 1 000 000
+
+// pas opti : pas ext 1
+// RW = 0 + 1 + 2 + 3 + ... + 369085 = 68 112 053 155 Réécritures
+// 
+// Sans opti :                68 112 053 155 Réécritures
+// Avec ce qui a été pensé :         111 110 Réécritures
 
 void ajouter(Liste_mot& liste_mot, Mot buffer)
 {
@@ -112,6 +128,9 @@ void initialiser(Liste_mot& liste_mot)
 {
 	liste_mot.inserted = 0;
 	liste_mot.tab = new Mot[1];
+
+	liste_mot.coef_extension_defaut = 10; // coef extension par défaut
+	liste_mot.coef_extension_grooos = 4; // coef extension une fois avoir atteint 100 000
 }
 
 void swap(Mot mot1, Mot mot2)
@@ -260,7 +279,7 @@ void afficher_liste(Liste_de_liste& conteneur_liste)
 	
 
 	Mot dernier_mot_doublon = "";
-	std::cout << liste_fin.tab[0] << std::endl;
+	//std::cout << liste_fin.tab[0] << std::endl;
 	for (unsigned int i = 1; i < liste_fin.inserted; i++)
 	{
 		if (strcmp(liste_fin.tab[i], dernier_mot_doublon) == 0) {
@@ -269,8 +288,10 @@ void afficher_liste(Liste_de_liste& conteneur_liste)
 		
 		if (strcmp(liste_fin.tab[i - 1], liste_fin.tab[i]) == 0) {
 			strcpy(dernier_mot_doublon, liste_fin.tab[i]);
+
+			std::cout << liste_fin.tab[i] << std::endl;
 		}
-		std::cout << liste_fin.tab[i] << std::endl;
+		// std::cout << liste_fin.tab[i] << std::endl;
 	}
 	std::cout << "*";
 
