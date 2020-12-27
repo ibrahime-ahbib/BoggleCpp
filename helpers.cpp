@@ -31,13 +31,13 @@ unsigned int mots_vers_pts(const char* mot)
 
 
 
-bool lire(Liste_mot & liste_mot)
+bool lire(Liste_mot& liste_mot)
 {
 	Mot buffer;
 	bool compteur = false;
 
 	while (1)
-    {
+	{
 		scanf("%s", buffer);
 
 		if (strcmp(buffer, "*") == 0) {
@@ -48,7 +48,7 @@ bool lire(Liste_mot & liste_mot)
 			ajouter(liste_mot, buffer);
 			compteur = true;
 		}
-    }
+	}
 
 	// inutile mais bon...
 	return compteur;
@@ -63,21 +63,21 @@ bool lire(Liste_mot& liste_mot, Plateau& plateau)
 	bool compteur = false;
 
 	while (1)
-    {
+	{
 		scanf("%s", buffer);
 
 		if (strcmp(buffer, "*") == 0) {
 			return compteur; // si compteur = 0 on a entré seulement * dans la liste
 		}
 
-		if ( !dans_le_plateau(plateau, buffer) )
+		if (!dans_le_plateau(plateau, buffer))
 			continue;
 
 		if (!exister(liste_mot, buffer)) {
 			ajouter(liste_mot, buffer);
 			compteur = true;
 		}
-    }
+	}
 
 	// inutile mais bon...
 	return compteur;
@@ -112,25 +112,37 @@ bool exister(Liste_mot& liste_mot, Mot mot_test)
 
 void ajouter(Liste_mot& liste_mot, Mot buffer)
 {
+	unsigned int nouvTaille;
 	unsigned int idx = liste_mot.inserted++;
 
-	Mot* nouveau_tableau = new Mot[idx + 1];
-	for (unsigned int i = 0; i < idx; ++i)
+	if (idx < liste_mot.capacite)
 	{
-		strcpy(nouveau_tableau[i], liste_mot.tab[i]);
+		strcpy(liste_mot.tab[idx], buffer);
 	}
-	strcpy(nouveau_tableau[idx], buffer);
-	delete[] liste_mot.tab;
-	liste_mot.tab = nouveau_tableau;
+	else {
+		nouvTaille = ((idx <= 100000) ? liste_mot.coef_extension_defaut : liste_mot.coef_extension_grooos) * liste_mot.capacite;
+
+		Mot* nouveau_tableau = new Mot[nouvTaille];
+		for (unsigned int i = 0; i < idx; ++i)
+		{
+			strcpy(nouveau_tableau[i], liste_mot.tab[i]);
+		}
+		strcpy(nouveau_tableau[idx], buffer);
+
+		delete[] liste_mot.tab;
+
+		liste_mot.tab = nouveau_tableau;
+		liste_mot.capacite = nouvTaille;
+	}
+
+
 }
 
 void initialiser(Liste_mot& liste_mot)
 {
 	liste_mot.inserted = 0;
-	liste_mot.tab = new Mot[1];
-
-	liste_mot.coef_extension_defaut = 10; // coef extension par défaut
-	liste_mot.coef_extension_grooos = 4; // coef extension une fois avoir atteint 100 000
+	liste_mot.capacite = 10;
+	liste_mot.tab = new Mot[liste_mot.capacite];
 }
 
 void swap(Mot mot1, Mot mot2)
@@ -157,7 +169,7 @@ void sans_repetition(Liste_mot& liste_mot1, Liste_mot& liste_mot2)
 	{
 		if (exister(liste_mot1, liste_mot2.tab[i])) {
 			continue;
-		} 
+		}
 		std::cout << liste_mot2.tab[i] << std::endl;
 	}
 	std::cout << "*" << std::endl;
@@ -178,6 +190,8 @@ void avec_repetition(Liste_mot& liste_mot1, Liste_mot& liste_mot2)
 void trier(Liste_mot& liste_mot)
 {
 	assert(liste_mot.inserted > 0);
+
+	if (liste_mot.inserted < 2) return;
 
 	for (int i = liste_mot.inserted; i > 0; --i)
 	{
@@ -204,79 +218,58 @@ void initialiser_liste(Liste_de_liste& conteneur_liste)
 
 
 
-void lire_liste(Liste_de_liste & conteneur_liste)
+void lire_liste(Liste_de_liste& conteneur_liste)
 {
-    while (1)
-    {
-        Liste_mot liste_mot;
-        initialiser(liste_mot);
-        if (lire(liste_mot) == 0) {
-            break;
-        }
-        trier(liste_mot);
-        ajouter_liste(conteneur_liste, liste_mot);
-        delete[] liste_mot.tab;
-    }
+	while (1)
+	{
+		Liste_mot liste_mot;
+		initialiser(liste_mot);
+		if (lire(liste_mot) == 0) {
+			break;
+		}
+		trier(liste_mot);
+		ajouter_liste(conteneur_liste, liste_mot);
+		// delete[] liste_mot.tab; //probleme ici
+	}
 }
-//void lire_liste(Liste_de_liste& conteneur_liste, Plateau& plateau)
-//{
-//	while (1)
-//	{
-//		Liste_mot liste_mot;
-//		initialiser(liste_mot);
-//
-//		
-//		if (! lire(liste_mot, plateau)) {
-//			break;
-//		}
-//		trier(liste_mot);
-//		ajouter_liste(conteneur_liste, liste_mot);
-//		delete[] liste_mot.tab;
-//	}
-//}
 
 void ajouter_liste(Liste_de_liste& conteneur_liste, Liste_mot& liste_mot)
 {
+
 	unsigned int idx = conteneur_liste.nb_listes++;
 	Liste_mot* nouveau_tableau_de_listes = new Liste_mot[idx + 1];
 
-	for(unsigned int i = 0; i < idx; ++i)
+	for (unsigned int i = 0; i < idx; ++i)
 	{
-		unsigned int inserted = conteneur_liste.listes[i].inserted; 
+		unsigned int inserted = conteneur_liste.listes[i].inserted;
 		nouveau_tableau_de_listes[i].inserted = inserted;
-		nouveau_tableau_de_listes[i].tab = new Mot[inserted];
-		for (unsigned int j = 0; j < inserted; j++) {
-			strcpy(nouveau_tableau_de_listes[i].tab[j], conteneur_liste.listes[i].tab[j]);
-		}
+		nouveau_tableau_de_listes[i].tab = conteneur_liste.listes[i].tab;
 	}
 
 	nouveau_tableau_de_listes[idx].inserted = liste_mot.inserted;
-	nouveau_tableau_de_listes[idx].tab = new Mot[liste_mot.inserted + 1];
-	for (unsigned int j = 0; j < liste_mot.inserted; j++)
-	{
-		strcpy(nouveau_tableau_de_listes[idx].tab[j], liste_mot.tab[j]);
-	}
+	nouveau_tableau_de_listes[idx].tab = liste_mot.tab;
 
 	delete[] conteneur_liste.listes;
 	conteneur_liste.listes = nouveau_tableau_de_listes;
-	
+
 }
-void afficher_liste(Liste_de_liste& conteneur_liste) 
+
+void afficher_liste(Liste_de_liste& conteneur_liste)
 {
 	Liste_mot liste_fin;
 	initialiser(liste_fin);
 
 	//la liste de tous les mots 
-	for (unsigned int i = 0; i < conteneur_liste.nb_listes; ++i) 
+	for (unsigned int i = 0; i < conteneur_liste.nb_listes; ++i)
 	{
-		for(unsigned int j = 0; j < conteneur_liste.listes[i].inserted; ++j)
+		for (unsigned int j = 0; j < conteneur_liste.listes[i].inserted; ++j)
 		{
 			ajouter(liste_fin, conteneur_liste.listes[i].tab[j]);
 		}
 	}
 
 	trier(liste_fin);
-	
+
 
 	Mot dernier_mot_doublon = "";
 	//std::cout << liste_fin.tab[0] << std::endl;
@@ -285,7 +278,7 @@ void afficher_liste(Liste_de_liste& conteneur_liste)
 		if (strcmp(liste_fin.tab[i], dernier_mot_doublon) == 0) {
 			continue;
 		}
-		
+
 		if (strcmp(liste_fin.tab[i - 1], liste_fin.tab[i]) == 0) {
 			strcpy(dernier_mot_doublon, liste_fin.tab[i]);
 
@@ -296,11 +289,11 @@ void afficher_liste(Liste_de_liste& conteneur_liste)
 	std::cout << "*";
 
 }
-void detruire_liste(Liste_de_liste& conteneur_liste) 
+void detruire_liste(Liste_de_liste& conteneur_liste)
 {
 	conteneur_liste.nb_listes = 0;
-	
-	for(unsigned int i = 0; i < conteneur_liste.nb_listes; ++i)
+
+	for (unsigned int i = 0; i < conteneur_liste.nb_listes; ++i)
 	{
 		delete[] conteneur_liste.listes[i].tab;
 	}
@@ -311,14 +304,15 @@ void detruire_liste(Liste_de_liste& conteneur_liste)
 bool ajouter_plateau(Plateau& p)
 {
 	Mot unMot;
-	for (unsigned int i= 0; i < TAILLE_PLATEAU; i++)
+	for (unsigned int i = 0; i < TAILLE_PLATEAU; i++)
 	{
 		scanf("%5s", unMot);
 		for (unsigned int j = 0; j < TAILLE_PLATEAU; j++)
 		{
 			if (unMot[j] >= 'A' && unMot[j] <= 'Z') {
 				p[i][j] = unMot[j];
-			} else {
+			}
+			else {
 				return false;
 			}
 		}
@@ -329,11 +323,11 @@ bool ajouter_plateau(Plateau& p)
 // inutile mais bon pour le debug
 void afficher_plateau(const Plateau& p)
 {
-	for (unsigned int i= 0; i< TAILLE_PLATEAU; i++)
+	for (unsigned int i = 0; i < TAILLE_PLATEAU; i++)
 	{
-		for (unsigned int j = 0; j< TAILLE_PLATEAU; j++)
+		for (unsigned int j = 0; j < TAILLE_PLATEAU; j++)
 		{
-			printf("plateau[%d][%d] = %c \n", i,  j,  p[i][j]);
+			printf("plateau[%d][%d] = %c \n", i, j, p[i][j]);
 		}
 	}
 }
@@ -370,7 +364,7 @@ bool sous_recherche(Mot mot, int pos, Coords c, Plateau& p, Plateau_bool& p_bool
 
 	for (int ligne = c.ligne - 1; ligne <= c.ligne + 1; ligne++) {
 		for (int col = c.col - 1; col <= c.col + 1; col++)
-		{			
+		{
 			if (sous_recherche(mot, pos + 1, { ligne, col }, p, p_bool)) {
 				return true;
 			}
@@ -383,15 +377,15 @@ bool sous_recherche(Mot mot, int pos, Coords c, Plateau& p, Plateau_bool& p_bool
 
 bool dans_le_plateau(Plateau& p, Mot mot)
 {
-    Plateau_bool p_bool;
-    initialiser_plateau(p_bool);
+	Plateau_bool p_bool;
+	initialiser_plateau(p_bool);
 
 	for (int ligne = 0; ligne < TAILLE_PLATEAU; ligne++)
 	{
 		for (int col = 0; col < TAILLE_PLATEAU; col++)
 		{
 			// Mot mot, int pos, Coords c, Plateau& p, Plateau_bool& p_bool
-			if (sous_recherche(mot, 0, {ligne, col}, p, p_bool))
+			if (sous_recherche(mot, 0, { ligne, col }, p, p_bool))
 				return true;
 		}
 	}
