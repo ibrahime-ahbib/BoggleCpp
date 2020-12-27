@@ -35,7 +35,7 @@ bool lire(Liste_mot& liste_mot)
 {
 	Mot buffer;
 	bool compteur = false;
-
+	
 	while (1)
 	{
 		scanf("%s", buffer);
@@ -44,7 +44,7 @@ bool lire(Liste_mot& liste_mot)
 			return compteur; // si compteur = 0 on a entré seulement * dans la liste
 		}
 
-		if (!exister(liste_mot, buffer)) {
+		if (liste_mot.capacite > 1000 || !exister(liste_mot, buffer)) {
 			ajouter(liste_mot, buffer);
 			compteur = true;
 		}
@@ -193,11 +193,13 @@ void trier(Liste_mot& liste_mot)
 
 	if (liste_mot.inserted < 2) return;
 
+	if (liste_mot.capacite > 1000) return;
+
 	for (int i = liste_mot.inserted; i > 0; --i)
 	{
-		for (int j = 0; j < i; ++j)
+		for (int j = 0; j < i - 1; ++j)
 		{
-			if (strcmp(liste_mot.tab[j], liste_mot.tab[j + 1]) == 1)
+			if (strcmp(liste_mot.tab[j], liste_mot.tab[j + 1]) > 0)
 			{
 				swap(liste_mot.tab[j], liste_mot.tab[j + 1]);
 			}
@@ -229,7 +231,6 @@ void lire_liste(Liste_de_liste& conteneur_liste)
 		}
 		trier(liste_mot);
 		ajouter_liste(conteneur_liste, liste_mot);
-		// delete[] liste_mot.tab; //probleme ici
 	}
 }
 
