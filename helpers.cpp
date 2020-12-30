@@ -16,16 +16,17 @@ unsigned int mots_vers_pts(const char* mot)
 	if (taille_mot >= 8) {
 		return 11;
 	}
-	switch (taille_mot) {
-	case 0:
-	case 1:
-	case 2: return 0;
-	case 3:
-	case 4: return 1;
-	case 5: return 2;
-	case 6: return 3;
-	case 7: return 5;
-	default: return 0;
+	switch (taille_mot) 
+	{
+		case 0: return 0;
+		case 1: return 0;
+		case 2:	return 0;
+		case 3: return 1;
+		case 4: return 1;
+		case 5: return 2;
+		case 6: return 3;
+		case 7: return 5;
+		default: return 0;
 	}
 }
 
@@ -34,28 +35,30 @@ unsigned int mots_vers_pts(const char* mot)
 bool lire(Liste_mot& liste_mot)
 {
 	Mot buffer;
-	bool compteur = false;
-	
+	bool success = false;
+
 	while (1)
 	{
 		scanf("%s", buffer);
 
-		if (strcmp(buffer, "*") == 0) {
-			return compteur; // si compteur = 0 on a entré seulement * dans la liste
+		if (strcmp(buffer, "*") == 0) 
+		{
+			return success; // si compteur = 0 on a entrÃ© seulement * dans la liste
 		}
 
-		if (liste_mot.capacite > 1000 || !exister(liste_mot, buffer)) {
+		if (liste_mot.capacite > 1000 || !exister(liste_mot, buffer)) //permet de savoir si ce que j'Ã©tudie c'est un dictionnaire ou simplement une liste de mots
+		{
 			ajouter(liste_mot, buffer);
-			compteur = true;
+			success = true;
 		}
 	}
 
 	// inutile mais bon...
-	return compteur;
+	return success;
 }
 
 /*
-	lire sauf que y'a vérification de plateau
+	lire sauf que y'a vÃ©rification de plateau
 */
 bool lire(Liste_mot& liste_mot, Plateau& plateau)
 {
@@ -67,7 +70,7 @@ bool lire(Liste_mot& liste_mot, Plateau& plateau)
 		scanf("%s", buffer);
 
 		if (strcmp(buffer, "*") == 0) {
-			return compteur; // si compteur = 0 on a entré seulement * dans la liste
+			return compteur; // si compteur = 0 on a entrÃ© seulement * dans la liste
 		}
 
 		if (!dans_le_plateau(plateau, buffer))
@@ -83,7 +86,7 @@ bool lire(Liste_mot& liste_mot, Plateau& plateau)
 	return compteur;
 }
 
-bool exister(Liste_mot& liste_mot, Mot mot_test)
+bool exister(const Liste_mot& liste_mot, const Mot mot_test)
 {
 	for (unsigned int i = 0; i < liste_mot.inserted; ++i)
 	{
@@ -93,22 +96,6 @@ bool exister(Liste_mot& liste_mot, Mot mot_test)
 
 	return false;
 }
-// max = 369085
-// 10 20 40
-
-// coef ext1 = 10
-// coef ext2 = 4
-// ce qui a été pensé : coef ext 100
-
-// 10 + 100 + 1000 + 10000 + 100000
-// 10, 100, 1000, 10 000, 100 000 -> *4 -> 400 000, 
-// 100 000, 1 000 000
-
-// pas opti : pas ext 1
-// RW = 0 + 1 + 2 + 3 + ... + 369085 = 68 112 053 155 Réécritures
-// 
-// Sans opti :                68 112 053 155 Réécritures
-// Avec ce qui a été pensé :         111 110 Réécritures
 
 void ajouter(Liste_mot& liste_mot, Mot buffer)
 {
@@ -187,6 +174,19 @@ void avec_repetition(Liste_mot& liste_mot1, Liste_mot& liste_mot2)
 	std::cout << "*" << std::endl;
 }
 
+
+static int comparer_mots(void const* a, void const* b) //Prototype Ã  suivre pour le qsort
+{
+	const Mot* pa = (const Mot*)a; 
+	const Mot* pb = (const Mot*)b; 
+
+	/*cast en const Mot* pour deux raisons : 
+		1) Renseigner au void le type que je veux manipuler
+		2) Renseigner Ã  pa l'adresse vers mon Mot qui est lui aussi dÃ©jÃ  une adresse
+	*/
+	return strcmp(*pa, *pb);
+}
+
 void trier(Liste_mot& liste_mot)
 {
 	assert(liste_mot.inserted > 0);
@@ -195,16 +195,7 @@ void trier(Liste_mot& liste_mot)
 
 	if (liste_mot.capacite > 1000) return;
 
-	for (int i = liste_mot.inserted; i > 0; --i)
-	{
-		for (int j = 0; j < i - 1; ++j)
-		{
-			if (strcmp(liste_mot.tab[j], liste_mot.tab[j + 1]) > 0)
-			{
-				swap(liste_mot.tab[j], liste_mot.tab[j + 1]);
-			}
-		}
-	}
+	qsort(liste_mot.tab, liste_mot.inserted, sizeof(Mot), comparer_mots);
 }
 
 
@@ -214,8 +205,6 @@ void initialiser_liste(Liste_de_liste& conteneur_liste)
 	conteneur_liste.listes = new Liste_mot[1];
 
 	initialiser(conteneur_liste.listes[0]);
-
-	return;
 }
 
 
@@ -310,27 +299,16 @@ bool ajouter_plateau(Plateau& p)
 		scanf("%5s", unMot);
 		for (unsigned int j = 0; j < TAILLE_PLATEAU; j++)
 		{
-			if (unMot[j] >= 'A' && unMot[j] <= 'Z') {
+			//if (unMot[j] >= 'A' && unMot[j] <= 'Z') {
 				p[i][j] = unMot[j];
-			}
-			else {
-				return false;
-			}
+			//}
+			//else {
+				//return false;
+			//}
 		}
 	}
-	return true;
-}
 
-// inutile mais bon pour le debug
-void afficher_plateau(const Plateau& p)
-{
-	for (unsigned int i = 0; i < TAILLE_PLATEAU; i++)
-	{
-		for (unsigned int j = 0; j < TAILLE_PLATEAU; j++)
-		{
-			printf("plateau[%d][%d] = %c \n", i, j, p[i][j]);
-		}
-	}
+	return true;
 }
 
 void initialiser_plateau(Plateau_bool& p_bool)
@@ -347,32 +325,33 @@ void initialiser_plateau(Plateau_bool& p_bool)
 
 bool sous_recherche(Mot mot, int pos, Coords c, Plateau& p, Plateau_bool& p_bool)
 {
-	if (pos >= strlen(mot)) {
-		return true; // <=> le mot (complet) a été trouvé dans le plateau !
+	if (pos == strlen(mot)) {
+		return true; // <=> le mot (complet) a Ã©tÃ© trouvÃ© dans le plateau !
 	}
-	if ((c.ligne > 4 || c.col > 4) || (c.ligne < 0 || c.col < 0)) {
+	if (c.ligne >= 4 || c.col >= 4 || c.ligne < 0 || c.col < 0) {
 		return false; // hors limite !!
 	}
 	if (p[c.ligne][c.col] != mot[pos]) {
-		return false; // case correspond pas à la lettre recherchée
+		return false; // case correspond pas Ã  la lettre recherchÃ©e
 	}
-
 	if (p_bool[c.ligne][c.col]) {
-		return false; // c'est visité :-(
+		return false; // c'est visitÃ© :-(
 	}
+	
+	p_bool[c.ligne][c.col] = true; // pas visitÃ© donc on marque comme visitÃ©
 
-	p_bool[c.ligne][c.col] = true; // pas visité donc on marque comme visité
-
-	for (int ligne = c.ligne - 1; ligne <= c.ligne + 1; ligne++) {
+	for (int ligne = c.ligne - 1; ligne <= c.ligne + 1; ligne++) 
+	{
 		for (int col = c.col - 1; col <= c.col + 1; col++)
 		{
-			if (sous_recherche(mot, pos + 1, { ligne, col }, p, p_bool)) {
+			if (sous_recherche(mot, pos + 1, { ligne, col }, p, p_bool)) 
+			{
 				return true;
 			}
 		}
 	}
 
-	p_bool[c.ligne][c.col] = false; // pas visité donc on marque comme visité
+	p_bool[c.ligne][c.col] = false; // pas visitÃ© donc on marque comme visitÃ©
 	return false;
 }
 
@@ -387,7 +366,9 @@ bool dans_le_plateau(Plateau& p, Mot mot)
 		{
 			// Mot mot, int pos, Coords c, Plateau& p, Plateau_bool& p_bool
 			if (sous_recherche(mot, 0, { ligne, col }, p, p_bool))
+			{
 				return true;
+			}
 		}
 	}
 	return false;
