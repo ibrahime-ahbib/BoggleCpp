@@ -47,7 +47,7 @@ void trier(Liste_mot& liste_mot);
 *
 *  @param[in] liste_mot la liste qui sera affichée
 */
-void afficher(Liste_mot& liste_mot);
+void afficher(const Liste_mot& liste_mot);
 
 /*
 *  @brief Vérifie l'existance d'un mot dans une liste de mots
@@ -60,8 +60,8 @@ void afficher(Liste_mot& liste_mot);
 bool exister(const Liste_mot& liste_mot, const Mot mot_test);
 
 /*
-*  @brief Lis une liste de mots qui sera entrée par l'utilsateur
-*  puis ajouter dans une liste sans ajouter des doublons
+*  @brief Lis un ou plusieurs mots qui seront entrés par l'utilsateur
+*  puis ajouter dans une liste de mots sans ajouter des doublons
 *
 *  @param[in-out] liste_mot la liste de mot auquel on ajoutera 
 *  les mots entrés.
@@ -71,27 +71,123 @@ bool exister(const Liste_mot& liste_mot, const Mot mot_test);
 */
 bool lire(Liste_mot& liste_mot);
 
-
+/*
+*  @brief Lis un ou plusieurs mots qui seront entrés par l'utilsateur
+*  puis ajouter dans une liste si ils sont contenus dans le plateau
+*
+*  @param[in-out] liste_mot la liste de mot auquel on ajoutera
+*  les mots entrés.
+* 
+*  @param[in] plateau le plateau dans lequel le mot sera vérifié
+*  avant d'être ajouté.
+*
+*  @return Vrai si au moins un mot a été ajouté à la liste
+*/
 bool lire(Liste_mot& liste_mot, Plateau& plateau);
-void sans_repetition(Liste_mot& liste_mot, Liste_mot& liste_mot2);
-void avec_repetition(Liste_mot& liste_mot, Liste_mot& liste_mot2);
+
+/*
+*  @brief Affiche les mots de la seconde liste n'aparaissant pas 
+*   dans la première
+*
+*  @param[in] liste_mot la liste qui sera comparée à la deuxieme
+*  @param[in] liste_mot2 la liste qui sera étudié afin qu'elle 
+*  affiche les mots demandés
+*/
+void sans_repetition(const Liste_mot& liste_mot, const Liste_mot& liste_mot2);
+
+/*
+*  @brief Affiche les mots de la seconde liste aparaissant 
+*   dans la première
+*
+*  @param[in] liste_mot la liste qui sera comparée à la deuxieme
+*  @param[in] liste_mot2 la liste qui sera étudié afin qu'elle 
+*  affiche les mots demandés
+*/
+void avec_repetition(const Liste_mot& liste_mot, const Liste_mot& liste_mot2);
 
 
 
 
 
-
+/*
+*  @brief Initialise un conteneur de liste de mots avec 
+*   une capacité et un coefficient d'extension
+*
+*  @param[in-out] conteneur_liste la liste de listes 
+*   qui sera initialisée
+*/
 void initialiser_liste(Liste_de_liste& conteneur_liste);
+
+/*
+*  @brief Lis un conteneur de listes de mots qui sera 
+*  entrée par l'utilsateur puis ajouter dans une liste 
+*  sans ajouter des doublons
+* 
+*  @param[in-out] conteneur_liste la liste de listes de mots 
+*  que l'on va lire.
+*/
 void lire_liste(Liste_de_liste& conteneur_liste);
+
+/*
+*  @brief Ajouter une liste de mots à un conteneur de listes.
+*
+*  @param[in-out] conteneur_liste la liste de listes de mots
+*  auquel on ajoutera le ou les listes de mots entrés.
+* 
+*  @param[in] liste_mot liste de mots étant complétée et qui 
+*  sera entrée dans le conteneur de listes.
+*/
 void ajouter_liste(Liste_de_liste& conteneur_liste, Liste_mot& liste_mot);
-void afficher_liste(Liste_de_liste& conteneur_liste);
+
+/*
+*  @brief Afficher un conteneur de listes de mots 
+*
+*  @param[in] conteneur_liste la liste de listes de mots
+*  que l'on va afficher.
+*/
+void afficher_liste(const Liste_de_liste& conteneur_liste);
+
+/*
+*  @brief Détruit un conteneur de liste de mots
+*
+*  @param[in] conteneur_liste la liste de listes de mots
+*  que l'on va désallouer.
+*/
 void detruire_liste(Liste_de_liste& conteneur_liste);
 
 
 
 
 
-
+/*
+*  @brief Insère un plateau entrée par l'utilisateur 
+*  dans notre plateau
+* 
+*  @param[in-out] p plateau dans lequel on aura notre 
+*  plateau entré
+* 
+*  @return Vrai si le plateau a bien été rajouté
+*/
 bool ajouter_plateau(Plateau& p);
+
+/*
+*  @brief Initialise les cases d'un plateau comme
+*  non-visitées
+*
+*  @param[in-out] p_bool plateau dans lequel on aura nos
+*  cases non-visitées.
+*/
 void initialiser_plateau(Plateau_bool& p_bool);
+
+/*
+*  @brief Vérifie si le mot entré par l'utilisateur
+*  est bien dans le plateau
+*
+*  @param[in] p plateau où l'on va vérifier l'existence
+*  du mot
+* 
+*  @param[in] mot Mot qui sera vérifié dans le plateau
+* 
+*  @return Vrai si le mot est dans le plateau
+*/
 bool dans_le_plateau(Plateau& p, Mot mot); // fonction de recherche
