@@ -8,16 +8,10 @@
 
 #pragma warning(disable:4996)
 
-
-
-// Pour l'exercice 2, cela donne : 
-// (echo 2 & type in1-2.txt) | sda-cours5.exe
-
-
 int exo1()
 {
     unsigned int nb_pts = 0;
-    char buffer[TAILLE_MAX];
+    char buffer[TAILLE_MAX + 1];
     while (1)
     {
         scanf("%s", buffer);
@@ -71,19 +65,17 @@ int exo3() {
     trier(cette_liste);
     trier(cette_liste2);
 
-    // afficher les éléments de liste_mot2 qui ne sont pas dans liste_mot1
+    // afficher les Ã©lÃ©ments de liste_mot2 qui ne sont pas dans liste_mot1
     sans_repetition(cette_liste, cette_liste2);
 
-
-    // TODO : faire une fonction detruire
     delete[] cette_liste.tab;
     delete[] cette_liste2.tab;
 
     return 0;
 }
 
-int exo4() {
-    unsigned int nb_pts = 0;
+int exo4() 
+{
 
     Liste_mot cette_liste, cette_liste2;
     initialiser(cette_liste);
@@ -95,7 +87,7 @@ int exo4() {
     trier(cette_liste);
     trier(cette_liste2);
 
-    // afficher les éléments de liste_mot2 qui sont **dans** liste_mot1
+    // afficher les Ã©lÃ©ments de liste_mot2 qui sont **dans** liste_mot1
     avec_repetition(cette_liste, cette_liste2);
 
 
@@ -107,14 +99,13 @@ int exo4() {
 }
 
 int exo5() {
-    unsigned int nb_pts = 0;
 
     Liste_de_liste liste_de_liste;
     initialiser_liste(liste_de_liste);
     lire_liste(liste_de_liste);
     afficher_liste(liste_de_liste);
     detruire_liste(liste_de_liste);
-
+ 
     return 0;
 }
 
@@ -122,7 +113,8 @@ int exo6()
 {
     Plateau plateau;
 
-    assert(ajouter_plateau(plateau));
+    bool verif = ajouter_plateau(plateau);
+    assert(verif);
 
     Liste_mot cette_liste;
     initialiser(cette_liste);
@@ -131,12 +123,12 @@ int exo6()
     trier(cette_liste);
     afficher(cette_liste);
 
-    // TODO : faire une fonction detruire
     delete[] cette_liste.tab;
     return 0;
 }
 
-int main() {
+int main() 
+{
     int num;
 
     std::cin >> num;
