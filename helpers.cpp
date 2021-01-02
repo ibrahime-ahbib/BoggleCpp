@@ -46,14 +46,13 @@ bool lire(Liste_mot& liste_mot)
 			return success; // si compteur = 0 on a entré seulement * dans la liste
 		}
 
-		if (liste_mot.capacite > 1000 || !exister(liste_mot, buffer)) //permet de savoir si ce que j'étudie c'est un dictionnaire ou simplement une liste de mots
+		if (liste_mot.capacite > 500 || !exister(liste_mot, buffer)) //permet de savoir si ce que j'étudie c'est un dictionnaire ou simplement une liste de mots
 		{
 			ajouter(liste_mot, buffer);
 			success = true;
 		}
 	}
 
-	// inutile mais bon...
 	return success;
 }
 
@@ -140,7 +139,7 @@ void swap(Mot mot1, Mot mot2)
 	strcpy(mot2, tmp);
 }
 
-void afficher(Liste_mot& liste_mot)
+void afficher(const Liste_mot& liste_mot)
 {
 	for (unsigned int i = 0; i < liste_mot.inserted; ++i)
 	{
@@ -150,7 +149,7 @@ void afficher(Liste_mot& liste_mot)
 
 }
 
-void sans_repetition(Liste_mot& liste_mot1, Liste_mot& liste_mot2)
+void sans_repetition(const Liste_mot& liste_mot1, const Liste_mot& liste_mot2)
 {
 	for (unsigned int i = 0; i < liste_mot2.inserted; ++i)
 	{
@@ -162,7 +161,7 @@ void sans_repetition(Liste_mot& liste_mot1, Liste_mot& liste_mot2)
 	std::cout << "*" << std::endl;
 }
 
-void avec_repetition(Liste_mot& liste_mot1, Liste_mot& liste_mot2)
+void avec_repetition(const Liste_mot& liste_mot1, const Liste_mot& liste_mot2)
 {
 	for (unsigned int i = 0; i < liste_mot2.inserted; ++i)
 	{
@@ -189,11 +188,12 @@ static int comparer_mots(void const* a, void const* b) //Prototype à suivre pou
 
 void trier(Liste_mot& liste_mot)
 {
-	assert(liste_mot.inserted > 0);
+	
 
 	if (liste_mot.inserted < 2) return;
 
-	if (liste_mot.capacite > 1000) return;
+	if (liste_mot.capacite > 1000) return; //Permet de savoir si il ce qu'on trie est le dictionnaire,
+										   //dans le cas échéant, on ne trie pas.
 
 	qsort(liste_mot.tab, liste_mot.inserted, sizeof(Mot), comparer_mots);
 }
@@ -215,7 +215,7 @@ void lire_liste(Liste_de_liste& conteneur_liste)
 	{
 		Liste_mot liste_mot;
 		initialiser(liste_mot);
-		if (lire(liste_mot) == 0) {
+		if (!lire(liste_mot)) {
 			break;
 		}
 		trier(liste_mot);
@@ -225,7 +225,6 @@ void lire_liste(Liste_de_liste& conteneur_liste)
 
 void ajouter_liste(Liste_de_liste& conteneur_liste, Liste_mot& liste_mot)
 {
-
 	unsigned int idx = conteneur_liste.nb_listes++;
 	Liste_mot* nouveau_tableau_de_listes = new Liste_mot[idx + 1];
 
@@ -241,10 +240,9 @@ void ajouter_liste(Liste_de_liste& conteneur_liste, Liste_mot& liste_mot)
 
 	delete[] conteneur_liste.listes;
 	conteneur_liste.listes = nouveau_tableau_de_listes;
-
 }
 
-void afficher_liste(Liste_de_liste& conteneur_liste)
+void afficher_liste(const Liste_de_liste& conteneur_liste)
 {
 	Liste_mot liste_fin;
 	initialiser(liste_fin);
