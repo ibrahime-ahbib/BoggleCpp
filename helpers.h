@@ -10,6 +10,8 @@ void trier(Liste_mot& liste_mot);
 void afficher(Liste_mot& liste_mot);
 bool exister(Liste_mot& liste_mot, Mot mot_test);
 
+void lire(Liste_mot& liste_mot);
+void sans_repetition(Liste_mot& liste_mot, Liste_mot& liste_mot2);
 
 
 
@@ -18,4 +20,4 @@ bool exister(Liste_mot& liste_mot, Mot mot_test);
  * @see https://fr.wikipedia.org/wiki/Tri_%C3%A0_bulles
  * @pre
  *
-*/#pragma once
+*/

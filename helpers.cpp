@@ -6,7 +6,7 @@
 
 #include "constantes.h"
 #include "conteneurs.h"
-
+#include "helpers.h"
 
 #pragma warning(disable:4996)
 
@@ -27,6 +27,22 @@ unsigned int mots_vers_pts(const char* mot)
 	case 7: return 5;
 	default: return 0;
 	}
+}
+
+void lire(Liste_mot& liste_mot)
+{
+	Mot buffer;
+	while (1)
+    {
+        scanf("%s", buffer);
+
+        if (strcmp(buffer, "*") == 0) {
+			return;
+        }
+
+        if (!exister(liste_mot, buffer))
+            ajouter(liste_mot, buffer);
+    }
 }
 
 bool exister(Liste_mot& liste_mot, Mot mot_test)
@@ -90,6 +106,19 @@ void afficher(Liste_mot& liste_mot)
 	for (unsigned int i = 0; i < liste_mot.inserted; ++i)
 	{
 		std::cout << liste_mot.tab[i] << std::endl;
+	}
+	std::cout << "*" << std::endl;
+
+}
+
+void sans_repetition(Liste_mot& liste_mot1, Liste_mot& liste_mot2)
+{
+	for (unsigned int i = 0; i < liste_mot2.inserted; ++i)
+	{
+		if (exister(liste_mot1, liste_mot2.tab[i])) {
+			continue;
+		} 
+		std::cout << liste_mot2.tab[i] << std::endl;
 	}
 	std::cout << "*" << std::endl;
 }
