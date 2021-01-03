@@ -12,6 +12,7 @@ bool exister(Liste_mot& liste_mot, Mot mot_test);
 
 void lire(Liste_mot& liste_mot);
 void sans_repetition(Liste_mot& liste_mot, Liste_mot& liste_mot2);
+void avec_repetition(Liste_mot& liste_mot, Liste_mot& liste_mot2);
 
 
 

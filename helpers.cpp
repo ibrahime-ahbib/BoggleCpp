@@ -123,6 +123,18 @@ void sans_repetition(Liste_mot& liste_mot1, Liste_mot& liste_mot2)
 	std::cout << "*" << std::endl;
 }
 
+void avec_repetition(Liste_mot& liste_mot1, Liste_mot& liste_mot2)
+{
+	for (unsigned int i = 0; i < liste_mot2.inserted; ++i)
+	{
+		if (!exister(liste_mot1, liste_mot2.tab[i])) {
+			continue;
+		}
+		std::cout << liste_mot2.tab[i] << std::endl;
+	}
+	std::cout << "*" << std::endl;
+}
+
 void trier(Liste_mot& liste_mot)
 {
 	assert(liste_mot.inserted > 0);
