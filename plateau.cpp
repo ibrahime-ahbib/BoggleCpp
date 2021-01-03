@@ -11,7 +11,7 @@
 #include "plateau.h"
 
 
-bool lire(Liste_mot& liste_mot, Plateau& plateau)
+bool lire_plateau(Liste_mot& liste_mot, Plateau& plateau)
 {
 	Mot buffer;
 	bool compteur = false;
