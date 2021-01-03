@@ -1,46 +1,35 @@
 #include <cstdio>
 #include <iostream>
 #include <cstring>
+
+#include "helpers.h"
+#include "conteneurs.h"
+
 #pragma warning(disable:4996)
-
-#define TAILLE_MAX 30
-
-unsigned int mots_vers_pts(const char* mot);
 
 int main(void)
 {
     unsigned int nb_pts = 0;
-    char buffer[TAILLE_MAX];
+    Mot buffer;
+
+    Liste_mot cette_liste;
+    initialiser(cette_liste);
     while (1)
     {
         scanf("%s", buffer);
 
-        if (strcmp(buffer, "*") == 0)
-            break;
+        if (strcmp(buffer, "*") == 0) {
+            break; // skip
+        }
 
-        nb_pts += mots_vers_pts(buffer);
+        if (!exister(cette_liste, buffer))
+            ajouter(cette_liste, buffer);
     }
-    std::cout << nb_pts;
+
+    trier(cette_liste);
+    afficher(cette_liste);
+
+    delete[] cette_liste.tab;
 
     return 0;
-}
-
-
-unsigned int mots_vers_pts(const char* mot)
-{
-    size_t taille_mot = strnlen(mot, TAILLE_MAX);
-    if (taille_mot >= 8) {
-        return 11;
-    }
-    switch (taille_mot) {
-    case 0:
-    case 1:
-    case 2: return 0;
-    case 3:
-    case 4: return 1;
-    case 5: return 2;
-    case 6: return 3;
-    case 7: return 5;
-    default: return 0;
-    }
 }
