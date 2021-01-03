@@ -8,16 +8,10 @@
 
 #pragma warning(disable:4996)
 
-
-
-// Pour l'exercice 2, cela donne : 
-// (echo 2 & type in1-2.txt) | sda-cours5.exe
-
-
-int exo1() 
+int exo1()
 {
     unsigned int nb_pts = 0;
-    char buffer[TAILLE_MAX];
+    char buffer[TAILLE_MAX + 1];
     while (1)
     {
         scanf("%s", buffer);
@@ -28,11 +22,11 @@ int exo1()
         nb_pts += mots_vers_pts(buffer);
     }
     std::cout << nb_pts;
-    
+
     return 0;
 }
 
-int exo2() 
+int exo2()
 {
     Mot buffer;
 
@@ -59,45 +53,43 @@ int exo2()
 }
 
 int exo3() {
-	
+
 
     Liste_mot cette_liste, cette_liste2;
     initialiser(cette_liste);
     initialiser(cette_liste2);
-    
+
     lire(cette_liste);
     lire(cette_liste2);
 
     trier(cette_liste);
     trier(cette_liste2);
 
-    // afficher les éléments de liste_mot2 qui ne sont pas dans liste_mot1
+    // afficher les Ã©lÃ©ments de liste_mot2 qui ne sont pas dans liste_mot1
     sans_repetition(cette_liste, cette_liste2);
-    
 
-    // TODO : faire une fonction detruire
     delete[] cette_liste.tab;
     delete[] cette_liste2.tab;
 
     return 0;
 }
 
-int exo4() {
-	unsigned int nb_pts = 0;
+int exo4() 
+{
 
     Liste_mot cette_liste, cette_liste2;
     initialiser(cette_liste);
     initialiser(cette_liste2);
-    
+
     lire(cette_liste);
     lire(cette_liste2);
 
     trier(cette_liste);
     trier(cette_liste2);
 
-    // afficher les éléments de liste_mot2 qui sont **dans** liste_mot1
+    // afficher les Ã©lÃ©ments de liste_mot2 qui sont **dans** liste_mot1
     avec_repetition(cette_liste, cette_liste2);
-    
+
 
     // TODO : faire une fonction detruire
     delete[] cette_liste.tab;
@@ -107,22 +99,22 @@ int exo4() {
 }
 
 int exo5() {
-	unsigned int nb_pts = 0;
 
     Liste_de_liste liste_de_liste;
     initialiser_liste(liste_de_liste);
     lire_liste(liste_de_liste);
     afficher_liste(liste_de_liste);
     detruire_liste(liste_de_liste);
-
+ 
     return 0;
 }
 
 int exo6()
 {
-	Plateau plateau;
+    Plateau plateau;
 
-	assert(ajouter_plateau(plateau));
+    bool verif = ajouter_plateau(plateau);
+    assert(verif);
 
     Liste_mot cette_liste;
     initialiser(cette_liste);
@@ -131,31 +123,31 @@ int exo6()
     trier(cette_liste);
     afficher(cette_liste);
 
-    // TODO : faire une fonction detruire
     delete[] cette_liste.tab;
-	return 0;
+    return 0;
 }
 
-int main() {
-	int num;
+int main() 
+{
+    int num;
 
-	std::cin >> num;
+    std::cin >> num;
 
-	switch (num) 
-	{
-		case 1:
-			return exo1(); 
-		case 2:
-			return exo2(); 
-		case 3:
-			return exo3(); 
-		case 4:
-			return exo4(); 
-		case 5:
-			return exo5();
-		case 6:
-			return exo6(); 
-	}
+    switch (num)
+    {
+    case 1:
+        return exo1();
+    case 2:
+        return exo2();
+    case 3:
+        return exo3();
+    case 4:
+        return exo4();
+    case 5:
+        return exo5();
+    case 6:
+        return exo6();
+    }
 
     return 1;
 }
