@@ -74,7 +74,7 @@ int exo3() {
     return 0;
 }
 
-int exo4() 
+int exo4()
 {
 
     Liste_mot cette_liste, cette_liste2;
@@ -105,7 +105,7 @@ int exo5() {
     lire_liste(liste_de_liste);
     afficher_liste(liste_de_liste);
     detruire_liste(liste_de_liste);
- 
+
     return 0;
 }
 
@@ -127,7 +127,7 @@ int exo6()
     return 0;
 }
 
-int main() 
+int main()
 {
     int num;
 
