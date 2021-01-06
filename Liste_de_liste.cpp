@@ -5,7 +5,7 @@
 #include <cassert>
 #include <cstdlib>
 
-#include "fonction_conteneurs.h"
+#include "Liste_de_liste.h"
 
 
 void initialiser_liste(Liste_de_liste& conteneur_liste)
@@ -56,7 +56,7 @@ void afficher_liste(const Liste_de_liste& conteneur_liste)
 	Liste_mot liste_fin;
 	initialiser(liste_fin);
 
-	//la liste de tous les mots 
+	//la liste de tous les mots
 	for (unsigned int i = 0; i < conteneur_liste.nb_listes; ++i)
 	{
 		for (unsigned int j = 0; j < conteneur_liste.listes[i].inserted; ++j)
