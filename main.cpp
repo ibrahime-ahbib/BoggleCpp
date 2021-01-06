@@ -4,7 +4,9 @@
 #include <cassert>
 
 #include "Liste_de_liste.h"
+#include "helpers.h"
 #include "plateau.h"
+
 
 #pragma warning(disable:4996)
 

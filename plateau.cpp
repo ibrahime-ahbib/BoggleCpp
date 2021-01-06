@@ -5,11 +5,11 @@
 #include <cassert>
 #include <cstdlib>
 
-#include "Liste_de_liste.h"
-#include "fonction_listes.h"
-
 #include "plateau.h"
 
+
+#include "Liste_de_liste.h"
+#include "helpers.h"
 
 bool lire_plateau(Liste_mot& liste_mot, Plateau& plateau)
 {

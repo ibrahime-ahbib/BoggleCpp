@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Liste_mot.h"
 
 ///////////////////////////////////////////////////
 ///    \brief Conteneur représentant une liste de

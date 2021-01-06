@@ -6,7 +6,7 @@
 #include <cstdlib>
 
 #include "Liste_de_liste.h"
-
+#include "helpers.h"
 
 void initialiser_liste(Liste_de_liste& conteneur_liste)
 {
