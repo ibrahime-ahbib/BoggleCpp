@@ -1,17 +1,14 @@
 #pragma warning(disable:4996)
-#include <cstdio>
-#include <iostream>
-#include <cstring>
-#include <cassert>
-#include <cstdlib>
+#include <cstdio>  // scanf, printf
+#include <iostream> // std::cin std::cout
+#include <cstring> // strcpy strcpy
 
 #include "plateau.h"
 
+#include "Liste_mot.h" // + Mot et constantes
+#include "helpers.h" // exister
 
-#include "Liste_de_liste.h"
-#include "helpers.h"
-
-bool lire_plateau(Liste_mot& liste_mot, Plateau& plateau)
+bool entree_dans_plateau(Liste_mot& liste_mot, Plateau& plateau)
 {
 	Mot buffer;
 	bool compteur = false;
@@ -24,6 +21,7 @@ bool lire_plateau(Liste_mot& liste_mot, Plateau& plateau)
 			return compteur; // si compteur = 0 on a entré seulement * dans la liste
 		}
 
+		/* skip si c'est pas dans le plateau */
 		if (!dans_le_plateau(plateau, buffer))
 			continue;
 
@@ -52,7 +50,7 @@ bool ajouter_plateau(Plateau& p)
 	return true;
 }
 
-void initialiser_plateau(Plateau_bool& p_bool)
+void initialiser_plateau_bool(Plateau_bool& p_bool)
 {
 	for (unsigned int i = 0; i < TAILLE_PLATEAU; i++)
 	{
@@ -63,6 +61,8 @@ void initialiser_plateau(Plateau_bool& p_bool)
 	}
 
 }
+
+// fonctions de recherche ---
 
 bool sous_recherche(Mot mot, int pos, Coords c, Plateau& p, Plateau_bool& p_bool)
 {
@@ -99,7 +99,7 @@ bool sous_recherche(Mot mot, int pos, Coords c, Plateau& p, Plateau_bool& p_bool
 bool dans_le_plateau(Plateau& p, Mot mot)
 {
 	Plateau_bool p_bool;
-	initialiser_plateau(p_bool);
+	initialiser_plateau_bool(p_bool);
 
 	for (int ligne = 0; ligne < TAILLE_PLATEAU; ligne++)
 	{

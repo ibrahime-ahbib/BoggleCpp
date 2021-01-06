@@ -27,7 +27,7 @@ struct Coords {
 *
 *  @return Vrai si au moins un mot a été ajouté à la liste
 */
-bool lire_plateau(Liste_mot& liste_mot, Plateau& plateau);
+bool entree_dans_plateau(Liste_mot& liste_mot, Plateau& plateau);
 
 /*
 *  @brief Insère un plateau entrée par l'utilisateur
@@ -47,7 +47,7 @@ bool ajouter_plateau(Plateau& p);
 *  @param[in-out] p_bool plateau dans lequel on aura nos
 *  cases non-visitées.
 */
-void initialiser_plateau(Plateau_bool& p_bool);
+void initialiser_plateau_bool(Plateau_bool& p_bool);
 
 /*
 *  @brief Vérifie si le mot entré par l'utilisateur

@@ -1,9 +1,9 @@
-#include <cstdio>
-#include <iostream>
-#include <cstring>
-#include <cassert>
+#include <cstdio>  // scanf, printf
+#include <iostream> // std::cin std::cout
+#include <cstring> // strcpy strcpy
+#include <cassert> // assert
 
-#include "Liste_de_liste.h"
+#include "Liste_de_liste.h" // + Liste_mot + Mot
 #include "helpers.h"
 #include "plateau.h"
 
@@ -86,7 +86,7 @@ int exo4()
     lire(cette_liste);
     lire(cette_liste2);
 
-    trier(cette_liste);
+    //trier(cette_liste); -> d'après l'énoncé on assume que c'est un dico trié
     trier(cette_liste2);
 
     // afficher les éléments de liste_mot2 qui sont **dans** liste_mot1
@@ -101,13 +101,11 @@ int exo4()
 }
 
 int exo5() {
-
     Liste_de_liste liste_de_liste;
     initialiser_liste(liste_de_liste);
     lire_liste(liste_de_liste);
     afficher_liste(liste_de_liste);
     detruire_liste(liste_de_liste);
-
     return 0;
 }
 
@@ -120,7 +118,7 @@ int exo6()
 
     Liste_mot cette_liste;
     initialiser(cette_liste);
-    lire_plateau(cette_liste, plateau);
+    entree_dans_plateau(cette_liste, plateau);
 
     trier(cette_liste);
     afficher(cette_liste);
