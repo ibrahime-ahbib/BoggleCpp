@@ -1,6 +1,5 @@
 #pragma once
 
-#include "constantes.h"
 #include "Liste_mot.h"
 
 typedef char Plateau[TAILLE_PLATEAU][TAILLE_PLATEAU]; ///< Contient le plateau entré
