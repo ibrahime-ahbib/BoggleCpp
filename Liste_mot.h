@@ -23,10 +23,10 @@ void initialiser(Liste_mot& liste_mot);
 /*
 *  @brief Ajoute un mot dans une liste de mots
 *
-*  @param[out] liste_mot liste où sera contenu le nouveau mot
-*  @paramin] buffer a ajouté dans la liste
+*  @param[in-out] liste_mot liste où sera contenu le nouveau mot
+*  @param[in] buffer a ajouté dans la liste
 */
-void ajouter(Liste_mot& liste_mot, Mot buffer);
+void ajouter(Liste_mot& liste_mot, const Mot buffer);
 
 /*
 *  @brief Affiche une liste de mots

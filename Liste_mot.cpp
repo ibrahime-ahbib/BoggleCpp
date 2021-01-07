@@ -10,7 +10,7 @@ void initialiser(Liste_mot& liste_mot)
 	liste_mot.tab = new Mot[liste_mot.capacite];
 }
 
-void ajouter(Liste_mot& liste_mot, Mot buffer)
+void ajouter(Liste_mot& liste_mot, const Mot buffer)
 {
 	unsigned int nouvTaille;
 	unsigned int idx = liste_mot.inserted++;

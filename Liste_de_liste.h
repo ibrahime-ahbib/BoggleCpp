@@ -52,7 +52,7 @@ void afficher_liste(const Liste_de_liste& conteneur_liste);
 /*
 *  @brief Détruit un conteneur de liste de mots
 *
-*  @param[in] conteneur_liste la liste de listes de mots
+*  @param[in-out] conteneur_liste la liste de listes de mots
 *  que l'on va désallouer.
 */
 void detruire_liste(Liste_de_liste& conteneur_liste);

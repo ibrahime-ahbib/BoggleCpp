@@ -1,4 +1,3 @@
-#include <cstdio>  // scanf, printf
 #include <iostream> // std::cin std::cout
 #include <cstring> // strcpy strcpy
 #include <cassert> // assert
@@ -16,7 +15,7 @@ int exo1()
     char buffer[TAILLE_MAX + 1];
     while (1)
     {
-        scanf("%s", buffer);
+        std::cin >> buffer;
 
         if (strcmp(buffer, "*") == 0)
             break;
@@ -36,7 +35,7 @@ int exo2()
     initialiser(cette_liste);
     while (1)
     {
-        scanf("%s", buffer);
+        std::cin >> buffer;
 
         if (strcmp(buffer, "*") == 0) {
             break; // skip

@@ -26,7 +26,7 @@ struct Coords {
 *
 *  @return Vrai si au moins un mot a été ajouté à la liste
 */
-bool entree_dans_plateau(Liste_mot& liste_mot, Plateau& plateau);
+bool entree_dans_plateau(Liste_mot& liste_mot, const Plateau& plateau);
 
 /*
 *  @brief Insère un plateau entrée par l'utilisateur
@@ -59,4 +59,4 @@ void initialiser_plateau_bool(Plateau_bool& p_bool);
 *
 *  @return Vrai si le mot est dans le plateau
 */
-bool dans_le_plateau(Plateau& p, Mot mot); // fonction de recherche
+bool dans_le_plateau(const Plateau& p, const Mot mot); // fonction de recherche

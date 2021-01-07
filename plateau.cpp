@@ -7,7 +7,7 @@
 #include "Liste_mot.h" // + Mot et constantes
 #include "helpers.h" // exister
 
-bool entree_dans_plateau(Liste_mot& liste_mot, Plateau& plateau)
+bool entree_dans_plateau(Liste_mot& liste_mot, const Plateau& plateau)
 {
 	Mot buffer;
 	bool compteur = false;
@@ -95,7 +95,7 @@ bool sous_recherche(Mot mot, int pos, Coords c, Plateau& p, Plateau_bool& p_bool
 	return false;
 }
 
-bool dans_le_plateau(Plateau& p, Mot mot)
+bool dans_le_plateau(const Plateau& p, const Mot mot)
 {
 	Plateau_bool p_bool;
 	initialiser_plateau_bool(p_bool);
