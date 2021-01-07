@@ -1,4 +1,11 @@
-#include <cstdio>  // scanf, printf
+/**
+ * @file plateau.cpp
+ * @author Logan Tann (LoganTann), Ibrahime Ahbib (Braxoia)
+ * @version 1 07/01/2021
+ * @brief Fonctions permettant la manipulation d'un plateau, et définition de ce
+ *        dernier.
+ */
+
 #include <iostream> // std::cin std::cout
 #include <cstring> // strcpy strcpy
 
@@ -14,7 +21,7 @@ bool entree_dans_plateau(Liste_mot& liste_mot, const Plateau& plateau)
 
 	while (1)
 	{
-		scanf("%s", buffer);
+		std::cin >> buffer;
 
 		if (strcmp(buffer, "*") == 0) {
 			return compteur; // si compteur = 0 on a entré seulement * dans la liste
@@ -39,7 +46,7 @@ bool ajouter_plateau(Plateau& p)
 	Mot unMot;
 	for (unsigned int i = 0; i < TAILLE_PLATEAU; i++)
 	{
-		scanf("%5s", unMot);
+		std::cin >> unMot; // sera tronqué juste ci-dessous
 		for (unsigned int j = 0; j < TAILLE_PLATEAU; j++)
 		{
 			p[i][j] = unMot[j];
@@ -63,7 +70,7 @@ void initialiser_plateau_bool(Plateau_bool& p_bool)
 
 // fonctions de recherche ---
 
-bool sous_recherche(Mot mot, int pos, Coords c, Plateau& p, Plateau_bool& p_bool)
+bool sous_recherche(const Mot mot, int pos, Coords c, const Plateau p, Plateau_bool& p_bool)
 {
 	if (pos == strlen(mot)) {
 		return true; // <=> le mot (complet) a été trouvé dans le plateau !

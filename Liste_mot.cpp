@@ -1,3 +1,11 @@
+/**
+ * @file Liste_mot.cpp
+ * @author Logan Tann (LoganTann), Ibrahime Ahbib (Braxoia)
+ * @version 1 07/01/2021
+ * @brief Conteneur dynamique extensible optimisé pour stocker des éléments de
+ *        type Mot
+ */
+
 #include <iostream>// std::cin, std::cout ..
 #include <cstring> // strcpy
 

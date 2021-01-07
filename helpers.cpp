@@ -1,5 +1,13 @@
+/**
+ * @file helpers.cpp
+ * @author Logan Tann (LoganTann), Ibrahime Ahbib (Braxoia)
+ * @version 1 07/01/2021
+ * @brief Contient des fonctions dites *utilitaires* permettant d'effectuer des
+ *		  opérations non basiques sur des conteneurs de type Liste_mot.
+ * @see Liste_mot.cpp pour les fonctions de lecture/ecriture du type Liste_mot
+ */
+
 #include <iostream>// std::cin, std::cout ...
-#include <cstdio>  // scanf, printf
 #include <cstdlib> // qsort
 #include <cstring> // strcpy strcpy
 
@@ -35,7 +43,7 @@ bool lire(Liste_mot& liste_mot)
 
 	while (1)
 	{
-		scanf("%s", buffer);
+		std::cin >> buffer;
 
 		if (strcmp(buffer, "*") == 0)
 		{

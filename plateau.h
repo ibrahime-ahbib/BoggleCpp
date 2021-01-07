@@ -1,4 +1,12 @@
+/**
+ * @file plateau.h
+ * @author Logan Tann (LoganTann), Ibrahime Ahbib (Braxoia)
+ * @version 1 07/01/2021
+ * @brief Fonctions permettant la manipulation d'un plateau, et définition de ce
+ *        dernier.
+ */
 #pragma once
+
 
 #include "Liste_mot.h"
 

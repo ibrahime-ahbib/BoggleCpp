@@ -1,10 +1,20 @@
+/**
+ * @file Liste_de_liste.h
+ * @author Logan Tann (LoganTann), Ibrahime Ahbib (Braxoia)
+ * @version 1 07/01/2021
+ * @brief Conteneur dynamique extensible symplifié permettant le stockage de
+ *        liste de mots.
+ * @see Liste_mot.h pour la définition du type Liste_mot, et helpers.h pour les
+ *      fonctions de manipulations non basiques (recherche...)
+ */
+
 #pragma once
 
 #include "Liste_mot.h"
 
 ///////////////////////////////////////////////////
-///    \brief Conteneur représentant une liste de
-/// listes de mots
+///    \brief Conteneur représentant une liste de 
+///           listes de mots
 ///////////////////////////////////////////////////
 struct Liste_de_liste {
     Liste_mot* listes; ///< Contient les listes de mots entrées

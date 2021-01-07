@@ -1,3 +1,11 @@
+/**
+ * @file helpers.h
+ * @author Logan Tann (LoganTann), Ibrahime Ahbib (Braxoia)
+ * @version 1 07/01/2021
+ * @brief Contient des fonctions dites *utilitaires* permettant d'effectuer des
+ *		  opérations non basiques sur des conteneurs de type Liste_mot.
+ * @see Liste_mot.h pour la définition du type Liste_mot
+ */
 #pragma once
 
 #include "constantes.h" // + type Mot

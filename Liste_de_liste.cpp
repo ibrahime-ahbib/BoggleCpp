@@ -1,5 +1,14 @@
+/**
+ * @file Liste_de_liste.cpp
+ * @author Logan Tann (LoganTann), Ibrahime Ahbib (Braxoia)
+ * @version 1 07/01/2021
+ * @brief Conteneur dynamique extensible symplifié permettant le stockage de
+ *        liste de mots.
+ * @see Liste_mot.cpp pour la définition du type Liste_mot, et helpers.cpp pour 
+ *      les fonctions de manipulations non basiques (recherche...)
+ */
+
 #pragma warning(disable:4996)
-#include <cstdio>
 #include <iostream>
 #include <cstring>
 #include <cassert>

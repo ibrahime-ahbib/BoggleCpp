@@ -1,3 +1,11 @@
+/**
+ * @file constantes.h
+ * @author Logan Tann (LoganTann), Ibrahime Ahbib (Braxoia)
+ * @version 1 07/01/2021
+ * @brief Contient des constantes sous forme de macros, et définition du type
+ *		  Mot.
+ */
+
 #pragma once
 
 #define TAILLE_MAX 30

@@ -1,3 +1,10 @@
+/**
+ * @file main.cpp
+ * @author Logan Tann (LoganTann), Ibrahime Ahbib (Braxoia)
+ * @version 1 07/01/2021
+ * @brief Porte d'entrée du programme, contient le code basique des six routines
+ */
+
 #include <iostream> // std::cin std::cout
 #include <cstring> // strcpy strcpy
 #include <cassert> // assert

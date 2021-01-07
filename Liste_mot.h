@@ -1,3 +1,11 @@
+/**
+ * @file Liste_mot.h
+ * @author Logan Tann (LoganTann), Ibrahime Ahbib (Braxoia)
+ * @version 1 07/01/2021
+ * @brief Conteneur dynamique extensible optimisé pour stocker des éléments de
+ *        type Mot
+ * @see constantes.h pour la définition du type mot et des constantes
+ */
 #pragma once
 
 #pragma warning(disable:4996)
