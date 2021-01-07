@@ -106,6 +106,9 @@ int exo5() {
     lire_liste(liste_de_liste);
     afficher_liste(liste_de_liste);
     detruire_liste(liste_de_liste);
+
+    // pour le test ultime : nécessité endl à la fin du sprint
+    std::cout << std::endl; 
     return 0;
 }
 

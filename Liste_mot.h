@@ -1,5 +1,7 @@
 #pragma once
 
+#pragma warning(disable:4996)
+
 #include "constantes.h" // + type Mot
 
 struct Liste_mot {

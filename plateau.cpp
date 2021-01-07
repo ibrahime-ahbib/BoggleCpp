@@ -1,4 +1,3 @@
-#pragma warning(disable:4996)
 #include <cstdio>  // scanf, printf
 #include <iostream> // std::cin std::cout
 #include <cstring> // strcpy strcpy
