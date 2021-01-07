@@ -18,6 +18,20 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="constantes.h" />
+    <ClInclude Include="helpers.h" />
+    <ClInclude Include="Liste_de_liste.h" />
+    <ClInclude Include="Liste_mot.h" />
+    <ClInclude Include="plateau.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="helpers.cpp" />
+    <ClCompile Include="Liste_de_liste.cpp" />
+    <ClCompile Include="Liste_mot.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="plateau.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -138,15 +152,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="helpers.cpp" />
-    <ClCompile Include="main.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="constantes.h" />
-    <ClInclude Include="conteneurs.h" />
-    <ClInclude Include="helpers.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
